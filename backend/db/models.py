@@ -14,6 +14,7 @@ class User(Base):
     is_active = Column(Boolean, default=True)
 
     todos = relationship("ToDo", back_populates="owner")
+    tokens = relationship("Token", back_populates="user")
 
 
 class ToDo(Base):
@@ -27,3 +28,12 @@ class ToDo(Base):
 
     owner = relationship('User', back_populates='todos')
 
+
+
+class Token(Base):
+    __tablename__ = 'tokens'
+    id = Column(Integer, primary_key=True, index=True)
+    access_token = Column(String, unique=True, index=True)
+
+    user_id = Column(Integer, ForeignKey('users.id'))
+    user = relationship('User', back_populates='tokens')
