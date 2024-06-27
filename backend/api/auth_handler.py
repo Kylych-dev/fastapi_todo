@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 from typing import List
 
-from fastapi import HTTPException, FastAPI
+from fastapi import HTTPException, Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_400_BAD_REQUEST
@@ -10,6 +10,9 @@ from starlette.status import HTTP_400_BAD_REQUEST
 from backend.db.models import User, Token
 from backend.db.schemas import UserCreate, UserAuth
 from secure import pwd_context
+
+from db.database import get_db
+
 
 
 def get_users(db: Session, skip: int = 0, limit: int = 100):
