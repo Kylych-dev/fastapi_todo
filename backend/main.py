@@ -1,16 +1,24 @@
+import os
+import sys
+sys.path.append('..')
+
 from fastapi import FastAPI
-
-from apps.database import engine
-from apps.account import models
-from apps.to_do import models
-
-
-models.core.Base.metadata.create_all(bind=engine)
+from backend.routers import to_do as to_do_router
+from backend.routers import users as users_router
+from db.database import engine
+from db import models
 
 app = FastAPI()
 
-app.include_router(auth.router)
 
+# app.include_router(
+#     router=to_do_router.router,
+#     prefix='/to_do'
+# )
 
+app.include_router(
+    router=users_router.router,
+    prefix='/users'
+)
 
 
