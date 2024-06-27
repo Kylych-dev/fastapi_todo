@@ -35,11 +35,14 @@ def user_token(user_data: schemas.UserCreate, db: Session = Depends(get_db)):
     return create_token(db=db, user_data=user_data)
 
 
-@router.get("/self", response_model=None)
+@router.get("/self/", response_model=None)
 def get_user_by_id(access_token: Annotated[str, Depends(apikey_schema)], db: Session = Depends(get_db)):
     token = db.scalar(select(Token).where(Token.access_token == access_token))
     if token:
-        return token.user
+        return {
+            "id": token.user.id,
+            "email": token.user.email
+        }
     else:
         raise HTTPException(
             status_code=HTTPStatus.UNAUTHORIZED,

@@ -11,10 +11,10 @@ from db import models
 app = FastAPI()
 
 
-# app.include_router(
-#     router=to_do_router.router,
-#     prefix='/to_do'
-# )
+app.include_router(
+    router=to_do_router.router,
+    prefix='/todo'
+)
 
 app.include_router(
     router=users_router.router,

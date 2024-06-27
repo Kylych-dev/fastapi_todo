@@ -60,3 +60,26 @@ class User(UserBase):
 
 class Token(BaseModel):
     access_token: str
+
+
+class ToDoCreate(BaseModel):
+    title: str
+    description: str = None
+    completed: bool = False
+    owner_id: int
+
+
+class ToDoUpdate(BaseModel):
+    title: str = None
+    description: str = None
+    completed: bool = None
+
+
+class ToDo(BaseModel):
+    title: str
+    description: str = None
+    completed: bool = False
+    owner_id: int
+
+    class Config:
+        orm_mode = True
